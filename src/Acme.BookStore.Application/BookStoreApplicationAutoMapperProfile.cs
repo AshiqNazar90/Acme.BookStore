@@ -1,4 +1,6 @@
 ﻿using Acme.BookStore.Books;
+using Acme.BookStore.Parties;
+using Acme.BookStore.UserTypes;
 using AutoMapper;
 
 namespace Acme.BookStore;
@@ -12,5 +14,9 @@ public class BookStoreApplicationAutoMapperProfile : Profile
          * into multiple profile classes for a better organization. */
         CreateMap<Book, BookDto>();
         CreateMap<CreateUpdateBookDto, Book>();
+        CreateMap<UserType, UserTypeDto>();
+        CreateMap<CreateUpdateUserTypeDto, UserType>();
+        CreateMap<Party, PartyDto>();
+        CreateMap<CreateUpdatePartyDto, Party>();
     }
 }
