@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Acme.BookStore.Books;
+using Acme.BookStore.Parties;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +21,42 @@ namespace Acme.BookStore.UserTypes
         CreateUpdateUserTypeDto>, //Used to create/update a book
        IUserTypeAppService //implement the IBookAppService
     {
-        public UserTypeAppService(IRepository<UserType, Guid> repository)
-            : base(repository)
+        IRepository<Book, Guid> bookrepository;
+        IRepository<Party, Guid> partiesrepository;
+        IRepository<UserType, Guid> usertyperepository;
+        public UserTypeAppService(IRepository<UserType, Guid> usertyperepository, 
+            IRepository<Book, Guid> bookrepository,
+            IRepository<Party, Guid> partiesrepository)
+            : base(usertyperepository)
         {
-
+            this.bookrepository=bookrepository;
+            this.partiesrepository=partiesrepository;
+            this.usertyperepository=usertyperepository;
         }
         
+    [HttpGet]
+            public async Task<CombainedData> helloAsync()
+
+       
+            {
+                var bookList = await bookrepository.GetListAsync();
+                var partieList = await partiesrepository.GetListAsync();
+
+                var result = new CombainedData();
+
+
+
+                result.Book = ObjectMapper.Map<Book, BookDto>(bookList[0]);
+            result.Partie = ObjectMapper.Map<Party, PartyDto>(partieList[0]);
+                //result.Partie = ObjectMapper.Map<Party, PartyDto>(partieList[0]);
+
+
+                return result;
+
+
+        }
+
+
+
     }
 }

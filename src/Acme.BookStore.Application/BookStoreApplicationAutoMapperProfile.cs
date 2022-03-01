@@ -1,4 +1,5 @@
 ﻿using Acme.BookStore.Books;
+using Acme.BookStore.Departments;
 using Acme.BookStore.Parties;
 using Acme.BookStore.UserTypes;
 using AutoMapper;
@@ -18,5 +19,7 @@ public class BookStoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateUserTypeDto, UserType>();
         CreateMap<Party, PartyDto>();
         CreateMap<CreateUpdatePartyDto, Party>();
+        CreateMap<Department, DepartmentDto>();
+        CreateMap<CreateUpdateDepartmentDto, Department>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Acme.BookStore.Books;
+using Acme.BookStore.Departments;
 using Acme.BookStore.Parties;
 using Acme.BookStore.UserTypes;
 using Microsoft.EntityFrameworkCore;
@@ -60,6 +61,8 @@ public class BookStoreDbContext :
     public DbSet<UserType> UserTypes { get; set; }
 
     public DbSet<Party> Parties { get; set; }
+
+    public DbSet<Department> Departments { get; set; }
     #endregion
 
     public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
