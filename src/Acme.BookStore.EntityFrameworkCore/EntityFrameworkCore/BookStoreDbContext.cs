@@ -135,7 +135,7 @@ public class BookStoreDbContext :
             b.Property(x => x.Name).IsRequired().HasMaxLength(100);
             b.Property(x => x.Age).IsRequired().HasMaxLength(3);
             b.Property(x => x.Address).IsRequired().HasMaxLength(100);
-
+           
             b.HasIndex(x => x.Name).IsUnique();
           
 
@@ -148,7 +148,7 @@ public class BookStoreDbContext :
             b.Property(x => x.BankName).IsRequired().HasMaxLength(100);
             b.Property(x => x.ActNumber).IsRequired().HasMaxLength(18);
             b.Property(x => x.UserName).IsRequired().HasMaxLength(100);
-
+           
             b.HasIndex(x => x.BankName).IsUnique();
             b.HasOne(b => b.UserProfile).WithMany(a => a.UserAccounts).HasForeignKey(z => z.UserID).IsRequired();
             b.HasOne(b => b.UserTransaction).WithMany(a => a.UserAccounts).HasForeignKey(z => z.UserTransactionID).IsRequired();
