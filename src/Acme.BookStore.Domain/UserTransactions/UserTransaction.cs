@@ -11,11 +11,11 @@ namespace Acme.BookStore.UserTransactions
 {
     public class UserTransaction: AuditedEntity<Guid>
     {
-        public int ID { get; set; }
+    
         public int Amount { get; set; }
         public DateTime DateTime { get; set; }
 
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
         public UserProfile UserProfile { get; set; }
 
         public ICollection<UserAccount> UserAccounts { get; set; }

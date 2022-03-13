@@ -11,17 +11,17 @@ namespace Acme.BookStore.UserAccounts
 {
     public class UserAccount:AuditedEntity<Guid>
     {
-        public int ID { get; set; }
+      
         public string BankName { get; set; }
         public int ActNumber { get; set; }
 
         public string UserName { get; set; }
         public DateTime DateofBrith { get; set; }
 
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
         public UserProfile UserProfile { get; set; }
 
-        public int UserTransactionID { get; set; }
+        public Guid UserTransactionID { get; set; }
         public UserTransaction UserTransaction { get; set; }
     }
 }
