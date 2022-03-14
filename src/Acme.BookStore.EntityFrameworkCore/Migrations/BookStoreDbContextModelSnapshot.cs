@@ -194,148 +194,6 @@ namespace Acme.BookStore.Migrations
                     b.ToTable("AppParties", (string)null);
                 });
 
-            modelBuilder.Entity("Acme.BookStore.UserAccounts.UserAccount", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ActNumber")
-                        .HasMaxLength(18)
-                        .HasColumnType("int");
-
-                    b.Property<string>("BankName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<DateTime>("DateofBrith")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid>("UserTransactionID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BankName")
-                        .IsUnique();
-
-                    b.HasIndex("UserID");
-
-                    b.HasIndex("UserTransactionID");
-
-                    b.ToTable("AppUserAccounts", (string)null);
-                });
-
-            modelBuilder.Entity("Acme.BookStore.UserProfiles.UserProfile", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("Age")
-                        .HasMaxLength(3)
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<DateTime>("DateofBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("AppUserProfiles", (string)null);
-                });
-
-            modelBuilder.Entity("Acme.BookStore.UserTransactions.UserTransaction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserProfileId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserProfileId");
-
-                    b.ToTable("AppUserTransactions", (string)null);
-                });
-
             modelBuilder.Entity("Acme.BookStore.UserTypes.UserType", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2327,34 +2185,6 @@ namespace Acme.BookStore.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("Acme.BookStore.UserAccounts.UserAccount", b =>
-                {
-                    b.HasOne("Acme.BookStore.UserProfiles.UserProfile", "UserProfile")
-                        .WithMany("UserAccounts")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Acme.BookStore.UserTransactions.UserTransaction", "UserTransaction")
-                        .WithMany("UserAccounts")
-                        .HasForeignKey("UserTransactionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserProfile");
-
-                    b.Navigation("UserTransaction");
-                });
-
-            modelBuilder.Entity("Acme.BookStore.UserTransactions.UserTransaction", b =>
-                {
-                    b.HasOne("Acme.BookStore.UserProfiles.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId");
-
-                    b.Navigation("UserProfile");
-                });
-
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
                 {
                     b.HasOne("Volo.Abp.AuditLogging.AuditLog", null)
@@ -2630,16 +2460,6 @@ namespace Acme.BookStore.Migrations
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Acme.BookStore.UserProfiles.UserProfile", b =>
-                {
-                    b.Navigation("UserAccounts");
-                });
-
-            modelBuilder.Entity("Acme.BookStore.UserTransactions.UserTransaction", b =>
-                {
-                    b.Navigation("UserAccounts");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

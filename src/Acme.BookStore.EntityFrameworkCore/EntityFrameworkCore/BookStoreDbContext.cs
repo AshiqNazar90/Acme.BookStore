@@ -1,9 +1,6 @@
 ﻿using Acme.BookStore.Books;
 using Acme.BookStore.Departments;
 using Acme.BookStore.Parties;
-using Acme.BookStore.UserAccounts;
-using Acme.BookStore.UserProfiles;
-using Acme.BookStore.UserTransactions;
 using Acme.BookStore.UserTypes;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -67,11 +64,7 @@ public class BookStoreDbContext :
 
     public DbSet<Department> Departments { get; set; }
 
-    public DbSet<UserProfile> UserProfiles { get; set; }
-
-    public DbSet<UserAccount> UserAccounts { get; set; }
-
-    public DbSet<UserTransaction> UserTransactions { get; set; }
+   
     #endregion
 
     public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
@@ -127,38 +120,8 @@ public class BookStoreDbContext :
 
         });
 
-        builder.Entity<UserProfile>(b =>
-        {
-            b.ToTable(BookStoreConsts.DbTablePrefix + "UserProfiles", BookStoreConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-
-            b.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            b.Property(x => x.Age).IsRequired().HasMaxLength(3);
-            b.Property(x => x.Address).IsRequired().HasMaxLength(100);
-           
-            b.HasIndex(x => x.Name).IsUnique();
-          
-
-        });
-        builder.Entity<UserAccount>(b =>
-        {
-            b.ToTable(BookStoreConsts.DbTablePrefix + "UserAccounts", BookStoreConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-
-            b.Property(x => x.BankName).IsRequired().HasMaxLength(100);
-            b.Property(x => x.ActNumber).IsRequired().HasMaxLength(18);
-            b.Property(x => x.UserName).IsRequired().HasMaxLength(100);
-           
-            b.HasIndex(x => x.BankName).IsUnique();
-            b.HasOne(b => b.UserProfile).WithMany(a => a.UserAccounts).HasForeignKey(z => z.UserID).IsRequired();
-            b.HasOne(b => b.UserTransaction).WithMany(a => a.UserAccounts).HasForeignKey(z => z.UserTransactionID).IsRequired();
-        });
-        builder.Entity<UserTransaction>(b =>
-        {
-            b.ToTable(BookStoreConsts.DbTablePrefix + "UserTransactions", BookStoreConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            //b.HasOne(b => b.UserProfile).WithMany(a => a.UserAccounts).HasForeignKey(z => z.UserID).IsRequired();
-
-        });
+        
+       
+        
     }
 }
